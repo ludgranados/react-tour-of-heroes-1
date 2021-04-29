@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { GlobalContext } from '../context/GlobalContext';
 import { useParams } from 'react-router-dom';
 import { FaStar, FaRegStar } from 'react-icons/fa';
 
@@ -11,6 +12,8 @@ const powers = [
 ];
 
 const HeroPage = () => {
+  const { heroes } = useContext(GlobalContext);
+
   let { heroId } = useParams();
   const [hero, setHero] = useState({
     superhero: '',
@@ -23,11 +26,11 @@ const HeroPage = () => {
   });
 
   /* TODO: Uncomment useEffect after heroes data set is hooked in */
-  // useEffect(() => {
-  //   let foundHero = heroes.find(h => h.id === +heroId);
-  //   // console.log(foundHero);
-  //   setHero(foundHero);
-  // }, [hero, heroId, heroes]);
+  useEffect(() => {
+    let foundHero = heroes.find(h => h.id === +heroId);
+    // console.log(foundHero);
+    setHero(foundHero);
+  }, [hero, heroId, heroes]);
 
   if (!hero.id) {
     return (
